@@ -6,7 +6,7 @@
      <div class="card">
         <div class="card-body">
             <h2 class="card-title"> {{ $movie['title'] }} </h2>
-                <p class="card-text">Genre: {{ $movie['genre'] }}</p>
+                <p class="card-text">Genre: {{ $movie->genre->name }}</p>
                 <p class="card-text">Rating: {{ $movie['rating'] }}</p>
                 <p class="card-text">Year: {{ $movie['year'] }}</p>
                 <p class="card-text">Prepared by: Jayvy P. Magdaraog</p>

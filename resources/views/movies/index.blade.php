@@ -57,6 +57,7 @@
                     <th>Genre</th>
                     <th>Rating</th>
                     <th>Year</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -79,6 +80,15 @@
                             @else
                                 <span class="badge bg-secondary">Classic</span>
                             @endif
+                        </td>
+                        <td>
+                            <a href="{{ route('movies.edit', $movie) }}" class="btn btn-sm btn-warning">Edit</a>
+                            <form action="{{ route('movies.destroy', $movie) }}" method="POST"
+                                onsubmit="return confirm('Delete this record?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 @empty

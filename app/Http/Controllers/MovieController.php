@@ -60,43 +60,48 @@ class MovieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Movie $movie)
     {
-        $movie = Movie::findOrFail($id);
+        
         return view('movies.show', compact('movie'));
     
-    
-    //    $movies = $this->movies();
-
-    //     if (!isset($movies[$id])) {
-    //         abort(404);
-    //     }
-
-    //     return view('movies.show', ['movie' => $movies[$id]]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    
+    public function edit(Movie $movie)
     {
-        //
+        $genres = Genre::all();
+        return view('movies.edit', compact('movie', 'genres'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Movie $movie)
     {
-        //
+        $validated = $request->validate([
+        'title' => 'required|string|max:100',
+        'genre_id' => 'required|exists:genres,id',
+        'rating' => 'required|numeric|min:0|max:10',
+        'year' => 'required|integer|min:1900|max:2030',
+    ]);
+
+    $movie->update($validated);
+
+    return redirect()->route('movies.index')
+    ->with('success', 'Movie updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Movie $movie)
     {
-        //
+        $movie->delete();
+
+        return redirect()
+        ->route('movies.index')
+        ->with('success', 'Movie deleted successfully');
     }
 
     /**

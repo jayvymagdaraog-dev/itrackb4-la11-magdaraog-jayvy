@@ -1,24 +1,13 @@
-LA10 – Eloquent ORM and Lookup Table
+G1. Route model binding needs two things to be true. Name both, and say what happens when only one of them is.
 
-<<<<<<< HEAD
-G1. Which column did you turn into a table, and why that one and not another?
+Route model binding needs two things: the route parameter name must match the controller's model variable, and the model must exist in the database with the correct ID. If only one condition is met, Laravel may fail to resolve the model and return a 404 error.
 
-I turned the genre column into a separate genres table because multiple movies can share the same genre. This avoids repeating genre names in the movies table and makes the database more organized.
 
-G2. What number did Screenshot 6 show, and why exactly that number?
+G2. Your Delete link opened the detail page instead of deleting anything. Explain why.
 
-Screenshot 6 showed 6 queries. One query retrieved the five movies, and five additional queries retrieved the genre of each movie because eager loading was not yet used.
+My Delete link opened the detail page because it was using a normal link (<a href>) that sends a GET request instead of a DELETE request. Deleting a record requires a form with method="POST", @csrf, and @method('DELETE') connected to the destroy route.
 
-G3. Your belongsTo method is named in the singular. What would break if you made it plural?
 
-The relationship method is named genre() because each movie belongs to one genre. If I renamed it to genres() without updating the other code, references such as $movie->genre and with('genre') would no longer work.
-=======
-F1. Which column did you make nullable, and why that one and not another?
-I made genre nullable because a movie can be added before it is classified. The title, rating, year and is_showing are always known, so they must never be empty.
+G3. old() takes a second argument on your edit form. What would break if you left it out, and what would break if you used only it?
 
-F2. Which step failed first for you, and what did the error say?
-The first failure was php artisan migrate:fresh --seed. It said Class "Database\Seeders\Movie" not found because I forgot use App\Models\Movie; in MovieSeeder.php.
-
-F3. You changed no Blade file in Part D, yet your pages still work. Why not?
-My controller sends the same variable names ($movies, $movie) to the same views. An Eloquent model gives Blade the same values the old array did, so only the data source changed.
->>>>>>> 4f1b87e5c2d0db55b9c3b02b51fe39dfe679d7e7
+The second argument in old() provides the movie's original value when the edit page first loads. If I leave it out, the form fields will be empty when I open the edit page, and if I use only the original value, the values I typed will disappear after validation fails.

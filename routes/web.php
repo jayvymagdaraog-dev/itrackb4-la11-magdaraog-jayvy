@@ -17,4 +17,4 @@ Route::get('/movies/filter/{year?}', function ($year = null) {
     return redirect()->route('movies.index', $year ? ['year' => $year] : []);
 });
 
-Route::resource('movies', MovieController::class)->only(['index', 'show', 'create', 'store']);
+Route::resource('movies', MovieController::class);
