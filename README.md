@@ -5,7 +5,7 @@ Route model binding needs two things: the route parameter name must match the co
 
 G2. Your Delete link opened the detail page instead of deleting anything. Explain why.
 
-My Delete link opened the detail page because it was using a normal link (<a href>) that sends a GET request instead of a DELETE request. Deleting a record requires a form with method="POST", @csrf, and @method('DELETE') connected to the destroy route.
+My Delete link opened the detail page because it was using a normal link <a href> that sends a GET request instead of a DELETE request. Deleting a record requires a form with method="POST", @csrf, and @method('DELETE') connected to the destroy route.
 
 
 G3. old() takes a second argument on your edit form. What would break if you left it out, and what would break if you used only it?
